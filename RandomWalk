@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+#include <cctype> 
+#include <ctime> 
+#include <algorithm>
+#include <cmath>
+#include <vector>
+
+using namespace std; 
+
+class project{
+    public:
+    
+    int getrand();
+    vector<double> getWalk();
+    
+    
+    
+};
+
+
+int project :: getrand(){
+    int count = (rand()%3);
+    return count; 
+}
+
+vector<double> project::getWalk()
+{
+    double u1, u2, normalrandom; 
+    u1 = ( (double)(rand()) + 1.0 )/( (double)(RAND_MAX) + 1.0);
+    u2 = ( (double)(rand()) + 1.0 )/( (double)(RAND_MAX) + 1.0);
+    normalrandom = cos(8.0*atan(1.0)*u2)*sqrt(-2.0*log(u1));
+    
+    double S;
+    cout<< "Input Stock Price: ";
+    cin>> S; 
+    double step;
+    cout<<"Input Volatility: "; 
+    cin>>step; 
+    
+   
+
+    vector<double> walk;
+    double prev = S; 
+    for(int i = 0; i<200; ++i)
+    {
+        int r = getrand();
+        double value = prev;
+        
+        if(normalrandom>=0) value += (normalrandom*step);
+        else if(normalrandom<0) value -= (step*normalrandom);
+        walk.push_back(value);
+        prev = value;
+    }
+    return walk;
+}
+
+
+int main()
+{
+    project one;
+    vector <double> walk = one.getWalk(); 
+    double S_current; 
+    
+    
+    
+    for(int j = 0; j < 2; ++j)
+    {
+        for (int i=0; i<200; ++i)
+        {
+            cout<<"\n"<<walk[i];
+            S_current = walk[i];
+            
+        }
+    } 
+    
+    cout<< " ******* "<<"\n"; 
+    cout<<"End Price: "<<S_current<<"\n";
+    cout<< "\n*******\n"; 
+    
+
+    return 0;   
+}
