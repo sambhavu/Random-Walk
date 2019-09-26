@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <vector>
+
+using namespace std; 
+
+int main(){
+    
+    double u1, u2, normalrandom;
+    double exp1, exp2; 
+    exp1 = 8; 
+    exp2 = -2;
+    double iv = .1; 
+    double underlying; 
+    double change; 
+    double count, sum, average; 
+    sum = 0;
+    count = 0; 
+    
+    for(int j = 0; j < 7; j++){
+        underlying = 100; 
+        for(int i = 0; i < 40; i++){   
+        
+            u1 = ( (double)(rand()) + 1.0 )/( (double)(RAND_MAX) + 1.0);
+            u2 = ( (double)(rand()) + 1.0 )/( (double)(RAND_MAX) + 1.0);
+            normalrandom = cos(exp1*atan(1.0)*u2)*sqrt(exp2*log(u1)); 
+            change = underlying*iv*normalrandom; 
+            underlying+=change; 
+            cout<<underlying<<", "; 
+            
+        }
+        sum+=underlying; 
+        count++;
+        cout<<"\n";
+    }
+    cout<<sum/count; 
+    return 0;
+}
